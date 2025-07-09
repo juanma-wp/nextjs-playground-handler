@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/wordpress/database/*
+!/wordpress/database/.gitkeep
+
+/wordpress/mu-plugins/*
+!/wordpress/mu-plugins/extended-user-info-rest.php

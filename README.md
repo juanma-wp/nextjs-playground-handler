@@ -1,8 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WordPress Users App
 
-## Getting Started
+This is a [Next.js](https://nextjs.org) project that integrates with WordPress using the [`wordpress-playground-handler`](https://www.npmjs.com/package/wordpress-playground-handler) package to fetch and display user data through the WordPress REST API.
 
-First, run the development server:
+## 🚀 Features
+
+- **WordPress Integration**: Uses `wordpress-playground-handler` to run a WordPress instance
+- **User Management**: Fetches and displays WordPress users with extended metadata
+- **REST API**: Custom WordPress plugin extends user data with last login, joined date, roles, and capabilities
+- **Modern UI**: Built with Next.js, React 19, and Tailwind CSS
+- **JWT Authentication**: Configured with JWT authentication for WordPress REST API
+
+## 📋 WordPress Configuration
+
+The project includes a WordPress blueprint (`wordpress/blueprint.json`) that automatically:
+- Sets up a WordPress installation
+- Installs the JWT Authentication plugin
+- Configures JWT authentication settings
+- Adds custom mu-plugins for enhanced user data
+
+## 🛠 Getting Started
+
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +38,54 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the WordPress users dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── src/
+│   ├── app/
+│   │   ├── api/users/route.ts    # WordPress REST API integration
+│   │   ├── components/           # React components
+│   │   └── page.tsx             # Main dashboard page
+└── wordpress/
+    ├── blueprint.json           # WordPress setup configuration
+    ├── database/               # WordPress database files
+    └── mu-plugins/             # Custom WordPress plugins
+```
 
-## Learn More
+## 🔧 WordPress Playground Handler
 
-To learn more about Next.js, take a look at the following resources:
+The `wordpress-playground-handler` package provides:
+- **Serverless WordPress**: Run WordPress without a traditional server setup
+- **Blueprint Configuration**: Automated WordPress setup and plugin installation
+- **File System Mounting**: Mount local directories as WordPress mu-plugins and database
+- **REST API Access**: Direct access to WordPress REST API endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Usage Example
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+import { getPlaygroundHandler } from 'wordpress-playground-handler';
 
-## Deploy on Vercel
+const handler = await getPlaygroundHandler({
+  blueprintPath: path.resolve(process.cwd(), 'wordpress/blueprint.json'),
+  mountPaths: {
+    databasePath: path.resolve(process.cwd(), 'wordpress/database'),
+    muPluginsPath: path.resolve(process.cwd(), 'wordpress/mu-plugins')
+  }
+});
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+const response = await handler.request({
+  method: 'GET',
+  url: '/wp-json/wp/v2/users'
+});
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 Learn More
+
+To learn more about the technologies used:
+
+- [wordpress-playground-handler Documentation](https://www.npmjs.com/package/wordpress-playground-handler)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
+- [WordPress REST API](https://developer.wordpress.org/rest-api/) - WordPress REST API documentation
+- [WordPress Playground](https://wordpress.github.io/wordpress-playground/) - WordPress Playground project
