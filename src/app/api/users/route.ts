@@ -9,7 +9,7 @@ export async function GET() {
     const handler = await getPlaygroundHandler({
       blueprintPath: path.resolve(process.cwd(), 'wordpress/blueprint.json'),
       mountPaths: {
-        databasePath: path.resolve(process.cwd(), 'wordpress/database'),
+        // databasePath: path.resolve(process.cwd(), 'wordpress/database'),
         muPluginsPath: path.resolve(process.cwd(), 'wordpress/mu-plugins')
       }
     });
