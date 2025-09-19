@@ -1,0 +1,6 @@
+# Exclude large WASM binaries
+node_modules/@php-wasm/node/asyncify/
+node_modules/@php-wasm/node/jspi/
+node_modules/@php-wasm/web/
+node_modules/@php-wasm/**/*.wasm
+node_modules/@php-wasm/**/*.node

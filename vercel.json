@@ -2,9 +2,14 @@
   "functions": {
     "src/app/api/users/route.ts": {
       "maxDuration": 30
+    },
+    "src/app/api/**/*.js": {
+      "runtime": "edge"
     }
   },
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": ".next"
+  
+
 }

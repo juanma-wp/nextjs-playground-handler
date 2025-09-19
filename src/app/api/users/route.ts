@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { getPlaygroundHandler } from 'wordpress-playground-handler';
 import path from 'path';
 
-export const runtime = 'nodejs';
+// export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export async function GET() {
   try {
